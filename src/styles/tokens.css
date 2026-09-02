@@ -1,0 +1,101 @@
+/* =========================================================================
+   Tokens de design — identidade visual do projeto.
+   Toda cor usada na aplicacao deve vir daqui. Nenhum componente escreve
+   valores hexadecimais diretamente.
+   ========================================================================= */
+
+:root {
+  /* ---- Paleta bruta (item 8 da especificacao) ---------------------------- */
+  --palette-white: #ffffff;
+  --palette-gray-100: #eceeec;
+  --palette-gray-200: #d3d2d0;
+  --palette-gray-400: #9d9ea0;
+  --palette-gray-600: #666666;
+
+  --palette-magenta: #d63066;
+  --palette-wine: #890038;
+  --palette-crimson: #bf0045;
+  --palette-pink: #fa6b91;
+  --palette-pink-light: #ff8aa9;
+  --palette-orange: #f3953f;
+
+  /* ---- Papeis semanticos ------------------------------------------------- */
+  /* Superficies */
+  --surface-app: var(--palette-gray-100);
+  --surface-raised: var(--palette-white);
+  --surface-sunken: var(--palette-gray-100);
+  --surface-hover: #f5f6f5;
+
+  /* Bordas e divisorias */
+  --border-subtle: var(--palette-gray-200);
+  --border-strong: var(--palette-gray-400);
+
+  /* Texto */
+  --text-primary: var(--palette-gray-600);
+  --text-secondary: var(--palette-gray-400);
+  --text-brand: var(--palette-wine);
+  --text-on-brand: var(--palette-white);
+
+  /* Marca e acoes */
+  --brand-primary: var(--palette-crimson);
+  --brand-primary-hover: var(--palette-wine);
+  --brand-accent: var(--palette-magenta);
+  --brand-soft: var(--palette-pink);
+  --brand-softer: var(--palette-pink-light);
+  --brand-highlight: var(--palette-orange);
+
+  /* Foco */
+  --focus-ring: 0 0 0 3px rgba(214, 48, 102, 0.32);
+
+  /* ---- Tipografia -------------------------------------------------------- */
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
+
+  --text-xs: 0.6875rem; /* 11px */
+  --text-sm: 0.8125rem; /* 13px */
+  --text-base: 0.9375rem; /* 15px */
+  --text-lg: 1.0625rem; /* 17px */
+  --text-xl: 1.375rem; /* 22px */
+  --text-2xl: 1.75rem; /* 28px */
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+
+  /* ---- Espacamento (escala de 4px) --------------------------------------- */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+
+  /* ---- Raios ------------------------------------------------------------- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-pill: 999px;
+
+  /* ---- Sombras ----------------------------------------------------------- */
+  --shadow-xs: 0 1px 2px rgba(38, 38, 40, 0.06);
+  --shadow-sm: 0 1px 3px rgba(38, 38, 40, 0.08), 0 1px 2px rgba(38, 38, 40, 0.04);
+  --shadow-md: 0 4px 12px rgba(38, 38, 40, 0.1);
+
+  /* ---- Layout ------------------------------------------------------------ */
+  --header-height: 84px;
+  --column-width: 312px;
+  --column-min-width: 258px;
+  --column-max-width: 380px;
+  --content-max-width: 1600px;
+
+  /* ---- Movimento --------------------------------------------------------- */
+  --transition-fast: 120ms ease;
+  --transition-base: 180ms ease;
+}
