@@ -119,3 +119,4 @@ Copie `.env.example` para `.env.local`. Nenhuma variável é necessária na Etap
 - [ ] 6. Banco de dados — Neon Postgres, API, sincronização
 - [ ] 7. Refinamento — UX, animações, loading, erros, performance
 # Fluxo-Chamados-Genesys
+# Fluxo-Chamados-Genesys
