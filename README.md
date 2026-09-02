@@ -120,3 +120,4 @@ Copie `.env.example` para `.env.local`. Nenhuma variável é necessária na Etap
 - [ ] 7. Refinamento — UX, animações, loading, erros, performance
 # Fluxo-Chamados-Genesys
 # Fluxo-Chamados-Genesys
+# Fluxo-Chamados-Genesys
