@@ -1,0 +1,97 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-6) var(--space-6) var(--space-5);
+}
+
+.heading {
+  font-size: var(--text-lg);
+  color: var(--text-primary);
+}
+
+.message {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  overflow-wrap: anywhere;
+}
+
+.itemName {
+  font-weight: var(--weight-semibold);
+  color: var(--text-primary);
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-6) var(--space-5);
+  border-top: 1px solid var(--surface-sunken);
+  background-color: var(--surface-sunken);
+}
+
+.secondaryButton,
+.confirmButton {
+  min-width: 116px;
+  padding: var(--space-3) var(--space-5);
+  border-radius: var(--radius-md);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast);
+}
+
+.secondaryButton {
+  background-color: var(--surface-raised);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+}
+
+.secondaryButton:hover {
+  border-color: var(--border-strong);
+  background-color: var(--surface-hover);
+}
+
+.danger {
+  background-color: var(--palette-wine);
+  border: 1px solid var(--palette-wine);
+  color: var(--text-on-brand);
+}
+
+.danger:hover {
+  background-color: var(--brand-primary);
+  border-color: var(--brand-primary);
+}
+
+.neutral {
+  background-color: var(--brand-primary);
+  border: 1px solid var(--brand-primary);
+  color: var(--text-on-brand);
+}
+
+.neutral:hover {
+  background-color: var(--brand-primary-hover);
+  border-color: var(--brand-primary-hover);
+}
+
+@media (max-width: 560px) {
+  .body,
+  .footer {
+    padding-inline: var(--space-4);
+  }
+
+  .footer {
+    flex-direction: column-reverse;
+  }
+
+  .secondaryButton,
+  .confirmButton {
+    width: 100%;
+  }
+}

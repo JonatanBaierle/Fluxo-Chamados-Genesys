@@ -2,7 +2,7 @@
 
 Kanban colaborativo com visão pública sem login e área administrativa protegida por senha.
 
-**Status: Etapa 1 (Interface) concluída.**
+**Status: Etapa 2 (Tarefas) concluída.**
 
 ---
 
@@ -49,13 +49,19 @@ src/
 │       └── page.module.css
 ├── components/
 │   ├── Header/              # Logo + acesso admin
-│   ├── Board/               # Título, resumo e faixa de colunas
+│   ├── Board/               # Título, resumo, faixa de colunas e diálogos
 │   ├── Column/              # Coluna com cabeçalho, lista e ação criar
-│   ├── TaskCard/            # Card de tarefa
+│   ├── TaskCard/            # Card de tarefa com ações editar/excluir
+│   ├── Modal/               # Casca de diálogo sobre <dialog> nativo
+│   ├── TaskModal/           # Formulário de criação e edição
+│   ├── ConfirmDialog/       # Confirmação de ação destrutiva
 │   └── Logo/                # Logo com preservação de proporção
 ├── lib/
 │   ├── types.ts             # Board, Column, Task, ColumnPermissions
 │   ├── mock-data.ts         # Dados da Etapa 1 (substituídos na Etapa 6)
+│   ├── selectors.ts         # Ordenação, próxima posição, renumeração
+│   ├── board-store.tsx      # Reducer do quadro (criar/editar/excluir)
+│   ├── validation.ts        # Regras de título e descrição (cliente + servidor)
 │   ├── permissions.ts       # Leitura de permissões para a interface
 │   └── format.ts            # Datas com fuso fixo (sem erro de hidratação)
 └── styles/
@@ -63,6 +69,24 @@ src/
 public/
 └── logos/                   # <- os arquivos de logo entram aqui
 ```
+
+---
+
+## Estado das tarefas (Etapa 2)
+
+Todas as mudanças passam por um único reducer em `src/lib/board-store.tsx`. A interface nunca altera o snapshot: despacha uma intenção e recebe o próximo snapshot pronto.
+
+| Ação | O que faz |
+|---|---|
+| `createTask` | Insere no fim da coluna (`position` = maior + 1), grava `createdAt` e `updatedAt` |
+| `updateTask` | Atualiza título e descrição e move `updatedAt`; sem mudança real, não toca na data |
+| `deleteTask` | Remove e renumera a coluna para 1, 2, 3… sem lacunas |
+
+Na Etapa 3 entra `task/moved` no mesmo reducer. Na Etapa 6 cada função vira uma chamada a `/api`, e o reducer continua sendo quem aplica o resultado na tela — os componentes não mudam nas duas etapas.
+
+**O estado vive apenas na memória da aba.** Recarregar volta aos dados de exemplo: persistência é o assunto da Etapa 6 (item 12), e `localStorage` foi descartado como solução definitiva.
+
+`src/lib/validation.ts` não importa React de propósito — as mesmas funções vão rodar na rota de API da Etapa 6, porque o item 13 exige que o servidor não confie no frontend.
 
 ---
 
@@ -112,7 +136,7 @@ Copie `.env.example` para `.env.local`. Nenhuma variável é necessária na Etap
 ## Etapas
 
 - [x] **1. Interface** — estrutura, header, kanban, colunas, cards, identidade visual, responsividade
-- [ ] 2. Tarefas — criar, editar, excluir, modal
+- [x] **2. Tarefas** — criar, editar, excluir, modal com título e descrição
 - [ ] 3. Drag and Drop — movimentação e reordenação
 - [ ] 4. Área administrativa — login por senha e gestão de colunas
 - [ ] 5. Permissões — por coluna, validadas no servidor

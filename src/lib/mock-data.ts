@@ -3,6 +3,9 @@
    Servem apenas para desenhar e validar a interface. Na Etapa 6 este arquivo
    e substituido por consultas ao Postgres, sem alterar os componentes:
    ambos entregam o mesmo BoardSnapshot.
+
+   As funcoes de ordenacao que ficavam aqui foram para src/lib/selectors.ts:
+   elas nao sao dados de exemplo e continuam valendo depois da migracao.
    ========================================================================= */
 
 import type { BoardSnapshot } from "./types";
@@ -225,15 +228,3 @@ export const mockBoard: BoardSnapshot = {
     },
   ],
 };
-
-/** Tarefas de uma coluna, ja na ordem de exibicao. */
-export function tasksOfColumn(snapshot: BoardSnapshot, columnId: string) {
-  return snapshot.tasks
-    .filter((task) => task.columnId === columnId)
-    .sort((a, b) => a.position - b.position);
-}
-
-/** Colunas do quadro, ja na ordem de exibicao. */
-export function orderedColumns(snapshot: BoardSnapshot) {
-  return [...snapshot.columns].sort((a, b) => a.position - b.position);
-}
