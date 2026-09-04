@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: var(--space-2);
@@ -7,36 +8,128 @@
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-xs);
-  cursor: pointer;
   transition:
     border-color var(--transition-fast),
     box-shadow var(--transition-fast),
     transform var(--transition-fast);
 }
 
-.card:hover {
+/* Somente o card que abre o modal se comporta como clicavel (item 4). */
+.card[data-interactive] {
+  cursor: pointer;
+}
+
+.card[data-interactive]:hover {
   border-color: var(--brand-soft);
   box-shadow: var(--shadow-sm);
   transform: translateY(-1px);
 }
 
-.card:focus-visible {
+/* O foco vai para o botao do titulo; o contorno e desenhado no card todo. */
+.card:has(.titleButton:focus-visible) {
   border-color: var(--brand-accent);
+  outline: 2px solid var(--brand-accent);
+  outline-offset: 2px;
 }
+
+/* ---- Titulo --------------------------------------------------------------- */
 
 .title {
   font-size: var(--text-base);
   font-weight: var(--weight-semibold);
   color: var(--text-primary);
   overflow-wrap: anywhere;
+  /* Espaco para os botoes de acao no canto superior direito. */
+  padding-right: var(--space-10);
 }
+
+.titleButton {
+  display: block;
+  width: 100%;
+  padding: 0;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  overflow-wrap: anywhere;
+}
+
+.titleButton:focus-visible {
+  outline: none;
+}
+
+/* Estende a area clicavel do titulo para o card inteiro, sem aninhar botoes.
+   Fica abaixo de .actions, que sobe com z-index. */
+.titleButton::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+/* ---- Acoes ---------------------------------------------------------------- */
+
+.actions {
+  position: absolute;
+  top: var(--space-2);
+  right: var(--space-2);
+  z-index: 1;
+  display: flex;
+  gap: var(--space-1);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+/* Em ponteiro fino as acoes aparecem no hover ou com o foco do teclado.
+   Em toque nao existe hover, entao ficam sempre visiveis (regra abaixo). */
+.card:hover .actions,
+.card:focus-within .actions {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .actions {
+    opacity: 1;
+  }
+}
+
+.actionButton {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-sm);
+  color: var(--text-secondary);
+  background-color: var(--surface-raised);
+  transition:
+    color var(--transition-fast),
+    border-color var(--transition-fast),
+    background-color var(--transition-fast);
+}
+
+.actionButton svg {
+  width: 15px;
+  height: 15px;
+}
+
+.actionButton:hover {
+  color: var(--brand-primary);
+  border-color: var(--border-subtle);
+  background-color: var(--surface-hover);
+}
+
+.actionButton.danger:hover {
+  color: var(--palette-wine);
+}
+
+/* ---- Corpo ---------------------------------------------------------------- */
 
 .description {
   font-size: var(--text-sm);
   color: var(--text-secondary);
   overflow-wrap: anywhere;
 
-  /* Resumo de duas linhas: o texto completo aparece no modal, na Etapa 2. */
+  /* Resumo de duas linhas: o texto completo aparece no modal de edicao. */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-line-clamp: 2;

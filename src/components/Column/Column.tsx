@@ -7,11 +7,25 @@ interface ColumnProps {
   column: ColumnModel;
   tasks: Task[];
   viewer: Viewer;
+  onCreateTask: () => void;
+  onEditTask: (task: Task) => void;
+  onDeleteTask: (task: Task) => void;
 }
 
 /** Uma coluna do quadro, com cabecalho, lista de tarefas e acao de criar. */
-export default function Column({ column, tasks, viewer }: ColumnProps) {
+export default function Column({
+  column,
+  tasks,
+  viewer,
+  onCreateTask,
+  onEditTask,
+  onDeleteTask,
+}: ColumnProps) {
+  // Item 4: a permissao vale por coluna, entao e resolvida aqui e repassada
+  // aos cards. O bloqueio real roda no servidor na Etapa 5.
   const canCreate = can(viewer, column, "createTask");
+  const canEdit = can(viewer, column, "editTask");
+  const canDelete = can(viewer, column, "deleteTask");
 
   return (
     <section
@@ -32,13 +46,26 @@ export default function Column({ column, tasks, viewer }: ColumnProps) {
         {tasks.length === 0 ? (
           <p className={styles.empty}>Nenhuma tarefa nesta coluna.</p>
         ) : (
-          tasks.map((task) => <TaskCard key={task.id} task={task} />)
+          tasks.map((task) => (
+            <TaskCard
+              key={task.id}
+              task={task}
+              canEdit={canEdit}
+              canDelete={canDelete}
+              onEdit={() => onEditTask(task)}
+              onDelete={() => onDeleteTask(task)}
+            />
+          ))
         )}
       </div>
 
       {/* Item 4: acao indisponivel para o usuario nao e exibida. */}
       {canCreate && (
-        <button type="button" className={styles.createButton}>
+        <button
+          type="button"
+          className={styles.createButton}
+          onClick={onCreateTask}
+        >
           <span className={styles.createIcon} aria-hidden="true">
             +
           </span>
